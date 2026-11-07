@@ -100,7 +100,7 @@ function renderMng(){
     lb.querySelectorAll("[data-rl]").forEach(b=>b.onclick=()=>{const n=+b.dataset.rl;
       if(OFFENSES.some(o=>o.lv===n)){notify("Level "+n+" is still used by some offenses. Change those offenses to another level first.");return}
       ask("Remove Level "+n+" from the levels list?",()=>{LEVELS=LEVELS.filter(v=>v!==n);saveLists();render();renderMng()})});
-    $("addLv").onclick=()=>{LEVELS.push(Math.max(0,...LEVELS)+1);saveLists();render();renderMng();const q=$("lvBox").querySelector(".lvlist");q.scrollTop=q.scrollHeight};
+    $("addLv").onclick=()=>{let n=1;while(LEVELS.includes(n))n++;LEVELS.push(n);LEVELS.sort((x,y)=>x-y);saveLists();render();renderMng();const e=$("lvBox").querySelector(`[data-rl="${n}"]`);if(e)e.parentNode.scrollIntoView({block:"nearest"})};
   }
 }
 function addMng(){
